@@ -1,0 +1,293 @@
+[user]
+    name = Elencio Calado
+    email = elencio.calado@example.com
+
+[core]
+    editor = code --wait
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+
+[init]
+    defaultBranch = main
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+
+[alias]
+    # ===== ALIASES BÁSICOS =====
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    ca = commit -a
+    cm = commit -m
+    cam = commit -am
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    visual = !gitk
+
+    # ===== STATUS E INFORMAÇÕES =====
+    s = status -s
+    ss = status -s
+    sts = status -s
+    stat = status
+    info = show --stat
+    who = shortlog -s --
+    changelog = log --oneline --graph --decorate
+
+    # ===== LOGS E HISTÓRICO =====
+    lg = log --oneline --graph --decorate --all
+    lga = log --oneline --graph --decorate --all
+    ll = log --oneline --graph --decorate
+    log1 = log --oneline -1
+    log5 = log --oneline -5
+    log10 = log --oneline -10
+    log20 = log --oneline -20
+    loggraph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+
+    # ===== BRANCHES =====
+    b = branch
+    ba = branch -a
+    bd = branch -d
+    bD = branch -D
+    brn = branch --no-merged
+    brm = branch --merged
+    new = checkout -b
+    switch = checkout -b
+    rename = branch -m
+    delete = branch -D
+
+    # ===== COMMITS =====
+    amend = commit --amend
+    amendnoedit = commit --amend --no-edit
+    undo = reset --soft HEAD^
+    undohard = reset --hard HEAD^
+    undosoft = reset --soft HEAD^
+    undomixed = reset --mixed HEAD^
+    redo = commit -c ORIG_HEAD
+    recommit = commit -c ORIG_HEAD
+
+    # ===== STAGING =====
+    addp = add -p
+    addi = add -i
+    addall = add -A
+    addmodified = add -u
+    unadd = reset HEAD
+    unstage = reset HEAD
+    resethead = reset HEAD
+
+    # ===== DIFF =====
+    d = diff
+    dc = diff --cached
+    dw = diff --word-diff
+    ds = diff --staged
+    diffstat = diff --stat
+    diffcached = diff --cached
+    diffstaged = diff --staged
+
+    # ===== REMOTE =====
+    r = remote
+    ra = remote add
+    rr = remote remove
+    rv = remote -v
+    rshow = remote show
+    rprune = remote prune
+    rupdate = remote update
+
+    # ===== PUSH/PULL =====
+    pu = push
+    po = push origin
+    pom = push origin main
+    pomaster = push origin master
+    pl = pull
+    plo = pull origin
+    plom = pull origin main
+    plomaster = pull origin master
+    sync = !git pull origin $(git branch --show-current) && git push origin $(git branch --show-current)
+
+    # ===== STASH =====
+    stash = stash push
+    stashes = stash list
+    stashshow = stash show
+    stashpop = stash pop
+    stashdrop = stash drop
+    stashclear = stash clear
+    stashapply = stash apply
+
+    # ===== MERGE E REBASE =====
+    m = merge
+    mr = merge --no-ff
+    mt = mergetool
+    abort = merge --abort
+    continue = merge --continue
+    skip = rebase --skip
+    rebaseabort = rebase --abort
+    rebasecontinue = rebase --continue
+
+    # ===== CONFIGURAÇÃO =====
+    config = config --list
+    configglobal = config --global --list
+    configlocal = config --local --list
+    configadd = config --add
+    configset = config --set
+    configunset = config --unset
+
+    # ===== ALIASES AVANÇADOS =====
+    # Criar branch e fazer checkout
+    cob = checkout -b
+    
+    # Ver último commit
+    last = log -1 HEAD
+    
+    # Ver arquivos modificados
+    modified = diff --name-only
+    
+    # Ver arquivos staged
+    staged = diff --cached --name-only
+    
+    # Ver arquivos não rastreados
+    untracked = ls-files --others --exclude-standard
+    
+    # Ver arquivos ignorados
+    ignored = ls-files --others --ignored --exclude-standard
+    
+    # Ver diferenças entre branches
+    diffbranch = diff main...HEAD
+    
+    # Ver commits entre branches
+    logbranch = log main..HEAD
+    
+    # Ver commits de uma data específica
+    logsince = log --since=
+    
+    # Ver commits de um autor
+    logauthor = log --author=
+    
+    # Ver commits com uma mensagem específica
+    loggrep = log --grep=
+    
+    # Ver estatísticas de um commit
+    stat = show --stat
+    
+    # Ver arquivos alterados em um commit
+    files = show --name-only
+    
+    # Ver conteúdo de um arquivo em um commit específico
+    showfile = show HEAD:
+    
+    # Ver tags
+    tags = tag -l
+    
+    # Criar tag anotada
+    tagannotated = tag -a
+    
+    # Ver reflog
+    reflog = reflog --oneline
+    
+    # Limpar branches locais deletadas
+    cleanup = !git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d
+    
+    # Ver tamanho do repositório
+    size = count-objects -vH
+    
+    # Ver arquivos maiores
+    bigfiles = rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort -k2nr | head -10
+    
+    # Ver commits por autor
+    authors = shortlog -s -n
+    
+    # Ver commits por data
+    commitsbyday = log --date=short --format='%ad' | sort | uniq -c
+    
+    # Ver commits por hora
+    commitsbyhour = log --date=format:'%H' --format='%ad' | sort | uniq -c
+    
+    # Ver commits por dia da semana
+    commitsbyweekday = log --date=format:'%u' --format='%ad' | sort | uniq -c
+
+    # ===== ALIASES PARA FLUXO DE TRABALHO =====
+    # Workflow básico
+    wip = commit -m "WIP"
+    done = commit -m "DONE"
+    fix = commit -m "FIX"
+    feat = commit -m "FEAT"
+    docs = commit -m "DOCS"
+    style = commit -m "STYLE"
+    refactor = commit -m "REFACTOR"
+    test = commit -m "TEST"
+    chore = commit -m "CHORE"
+    
+    # Workflow de feature
+    feature = !git checkout -b feature/
+    hotfix = !git checkout -b hotfix/
+    release = !git checkout -b release/
+    
+    # Workflow de merge
+    mergemain = !git checkout main && git merge $(git branch --show-current) && git branch -d $(git branch --show-current)
+    mergemaster = !git checkout master && git merge $(git branch --show-current) && git branch -d $(git branch --show-current)
+
+[color]
+    ui = auto
+    status = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+
+[color "branch"]
+    current = yellow
+    local = green
+    remote = red
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = red
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+
+[merge]
+    tool = vscode
+    conflictstyle = diff3
+
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+    trustExitCode = true
+
+[diff]
+    tool = vscode
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[credential]
+    helper = store
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
